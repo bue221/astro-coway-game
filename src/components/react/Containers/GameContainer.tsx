@@ -202,6 +202,7 @@ const GameContainer = () => {
                   {history.map((gen: any, index: number) => (
                     <Button
                       key={index}
+                      variant="ghost"
                       className={"w-full justify-start"}
                       onClick={onSelectedGeneration(index)}
                     >
