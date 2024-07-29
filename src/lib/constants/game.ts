@@ -1,5 +1,3 @@
-// Description: Constants for the game.
-
 export const DEFAULT_GRID_SIZE = 40;
 
 /*
