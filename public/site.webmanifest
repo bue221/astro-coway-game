@@ -1,0 +1,24 @@
+{
+  "name": "Conway’s Game of Life",
+  "short_name": "Game of Life",
+  "description": "Simulador interactivo del autómata celular de Conway: dibuja células, carga patrones y observa generaciones sobre un lienzo editorial.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e5e4e0",
+  "theme_color": "#e5e4e0",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

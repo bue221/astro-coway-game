@@ -1,22 +1,32 @@
 import * as React from "react";
 
-const useIsMobile = (mobileScreenSize = 768) => {
-  if (typeof window.matchMedia !== "function") {
-    throw Error("matchMedia not supported by browser!");
-  }
-  const [isMobile, setIsMobile] = React.useState(
-    window.matchMedia(`(max-width: ${mobileScreenSize}px)`).matches
-  );
+import { MOBILE_BREAKPOINT_PX } from "../../../lib/constants/game";
 
-  const checkIsMobile = React.useCallback((event: any) => {
+const useIsMobile = (mobileScreenSize = MOBILE_BREAKPOINT_PX) => {
+  const [isMobile, setIsMobile] = React.useState(() => {
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function"
+    ) {
+      return false;
+    }
+
+    return window.matchMedia(`(max-width: ${mobileScreenSize}px)`).matches;
+  });
+
+  const checkIsMobile = React.useCallback((event: MediaQueryListEvent) => {
     setIsMobile(event.matches);
   }, []);
 
   React.useEffect(() => {
+    if (typeof window.matchMedia !== "function") {
+      return;
+    }
+
     const mediaListener = window.matchMedia(
       `(max-width: ${mobileScreenSize}px)`
     );
-    // try catch used to fallback for browser compatibility
+
     try {
       mediaListener.addEventListener("change", checkIsMobile);
     } catch {
@@ -30,7 +40,7 @@ const useIsMobile = (mobileScreenSize = 768) => {
         mediaListener.removeListener(checkIsMobile);
       }
     };
-  }, [mobileScreenSize]);
+  }, [checkIsMobile, mobileScreenSize]);
 
   return isMobile;
 };

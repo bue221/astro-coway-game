@@ -6,13 +6,30 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "30px",
       screens: {
         "2xl": "1400px",
       },
     },
     extend: {
+      fontFamily: {
+        sans: [
+          "Inter",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "sans-serif",
+        ],
+      },
       colors: {
+        parchment: "var(--color-parchment)",
+        ink: "var(--color-ink)",
+        paper: "var(--color-paper)",
+        ash: "var(--color-ash)",
+        stone: "var(--color-stone)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -48,9 +65,17 @@ module.exports = {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "var(--radius-buttons)",
+        md: "var(--radius-buttons)",
+        sm: "var(--radius-buttons)",
+        cards: "var(--radius-cards)",
+        links: "var(--radius-links)",
+      },
+      maxWidth: {
+        page: "var(--page-max-width)",
+      },
+      boxShadow: {
+        none: "none",
       },
       keyframes: {
         "accordion-down": {

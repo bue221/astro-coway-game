@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 type TGRID = number[][];
+
+const generateEmptyGrid = (size: number): TGRID => {
+  return Array.from({ length: size }, () => Array(size).fill(0));
+};
 
 const useGrid = (
   size: number
@@ -10,19 +14,19 @@ const useGrid = (
   toggleCell: (i: number, j: number) => void;
   generateEmptyGrid: (size: number) => TGRID;
 } => {
-  const generateEmptyGrid = (size: number) => {
-    return Array.from({ length: size }, () => Array(size).fill(0));
-  };
-
   const [grid, setGrid] = useState<TGRID>(() => generateEmptyGrid(size));
 
-  const toggleCell = (i: number, j: number) => {
-    setGrid((grid) => {
-      const newGrid = grid.map((row) => [...row]);
+  const toggleCell = useCallback((i: number, j: number) => {
+    setGrid((current) => {
+      if (!current[i] || current[i][j] === undefined) {
+        return current;
+      }
+
+      const newGrid = current.map((row) => [...row]);
       newGrid[i][j] = newGrid[i][j] ? 0 : 1;
       return newGrid;
     });
-  };
+  }, []);
 
   return { grid, setGrid, toggleCell, generateEmptyGrid };
 };

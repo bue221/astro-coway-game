@@ -1,4 +1,6 @@
 export const DEFAULT_GRID_SIZE = 40;
+export const MOBILE_GRID_SIZE = 16;
+export const MOBILE_BREAKPOINT_PX = 768;
 
 /*
 Visual representation of the grid:

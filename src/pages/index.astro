@@ -1,13 +1,101 @@
 ---
 import GameContainer from "../components/react/Containers/GameContainer";
 import Layout from "../layouts/Layout.astro";
+
+const glider = [
+  [0, 1, 0],
+  [0, 0, 1],
+  [1, 1, 1],
+];
 ---
 
 <Layout
-  title="Game of life - Bue221"
-  description="This is a representation to a coway mathemathic Game."
+  title="Conway’s Game of Life — Simulador editorial"
+  description="Simulador del autómata celular de Conway: dibuja células, carga patrones y observa cómo un planeador y otras formas evolucionan generación a generación."
 >
   <main>
-    <GameContainer client:only />
+    <section
+      class="relative z-10 mx-auto max-w-page px-[15px] pb-[46px] pt-[19px] md:px-[30px] md:pb-[76px] md:pt-[32px]"
+      aria-labelledby="how-it-works"
+    >
+      <div class="flex flex-col gap-[32px] lg:flex-row lg:items-end lg:justify-between lg:gap-[76px]">
+        <div class="max-w-lg">
+          <p
+            id="how-it-works"
+            class="text-caption uppercase text-ink"
+            style="letter-spacing: 0.05em"
+          >
+            Cómo funciona
+          </p>
+          <p
+            class="mt-[19px] text-left text-[18px] leading-[1.4] tracking-[0.23px] text-ink"
+          >
+            Cada celda vive o muere según sus ocho vecinas. Dos o tres vecinas
+            vivas la sostienen; tres despiertan una celda vacía. El resto muere
+            o sigue en papel.
+          </p>
+        </div>
+        <a
+          href="#simulacion"
+          class="inline-flex w-fit shrink-0 rounded-[10px] border border-ink px-[19px] py-[8px] text-[11px] uppercase tracking-[0.05em] text-ink hover:bg-ink hover:text-parchment"
+        >
+          Ir a la simulación →
+        </a>
+      </div>
+
+      <div class="mt-[32px] grid grid-cols-1 gap-[19px] md:mt-[46px] md:grid-cols-3">
+        <article class="border border-ash bg-paper p-[30px]">
+          <div
+            class="mb-[19px] grid w-fit grid-cols-3"
+            aria-hidden="true"
+          >
+            {
+              glider.flatMap((row, rowIndex) =>
+                row.map((alive, colIndex) => (
+                  <span
+                    data-cell={`${rowIndex}-${colIndex}`}
+                    class:list={[
+                      "size-5 border border-ash",
+                      alive ? "bg-ink" : "bg-paper",
+                    ]}
+                  />
+                ))
+              )
+            }
+          </div>
+          <p class="text-caption uppercase text-ink" style="letter-spacing: 0.05em">
+            01 — Tu patrón
+          </p>
+          <p class="mt-[15px] text-left text-[18px] leading-[1.4] tracking-[0.23px] text-ink">
+            Haz clic en el tablero para pintar. Tinta es vida; papel, vacío.
+            Así armas tu propia configuración antes de arrancar.
+          </p>
+        </article>
+
+        <article class="border border-ash bg-paper p-[30px]">
+          <p class="text-caption uppercase text-ink" style="letter-spacing: 0.05em">
+            02 — Controles
+          </p>
+          <p class="mt-[15px] text-left text-[18px] leading-[1.4] tracking-[0.23px] text-ink">
+            Random llena el tablero al azar. Start / Stop avanza generaciones.
+            Speed marca el ritmo. Clear borra todo.
+          </p>
+        </article>
+
+        <article class="border border-ash bg-paper p-[30px]">
+          <p class="text-caption uppercase text-ink" style="letter-spacing: 0.05em">
+            03 — History
+          </p>
+          <p class="mt-[15px] text-left text-[18px] leading-[1.4] tracking-[0.23px] text-ink">
+            Cada generación se guarda. Abre History y elige un número para
+            volver a ese momento del tablero.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="simulacion" class="scroll-mt-[19px]" aria-label="Simulación">
+      <GameContainer client:only="react" />
+    </section>
   </main>
 </Layout>
